@@ -11,7 +11,7 @@ const app = express();
 
 // CORS setup to allow only your custom domain
 const corsOptions = {
-  origin: "https://yourdomain.com", // Replace with your production domain
+  origin: "https://ambulace-frontend.vercel.app", // Replace with your production domain
   methods: "GET,POST,PUT,DELETE", // Allow these HTTP methods
   allowedHeaders: "Content-Type,Authorization", // Allow these headers
 };
