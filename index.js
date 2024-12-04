@@ -11,19 +11,22 @@ const app = express();
 
 // CORS setup to allow only your custom domain
 const corsOptions = {
-  origin:["https://ambulace-frontend.vercel.app", "http://localhost:5173" , // Replace with your production domain
-  methods: "GET,POST,PUT,DELETE", // Allow these HTTP methods
-  allowedHeaders: "Content-Type,Authorization", // Allow these headers
+  origin: ["https://ambulace-frontend.vercel.app", "http://localhost:5173"], // Replace with your frontend domains
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow these HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+  credentials: true, // Enable cookies for cross-origin requests if needed
 };
 
-// Apply CORS middleware with the custom domain restrictions
+// Apply CORS middleware
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Handle preflight requests
 
 // Middleware setup to parse incoming JSON requests
 app.use(express.json());
 
-// MongoDB connection (updated to remove deprecated options)
-mongoose.connect(process.env.MONGO_URI)
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("MongoDB connection error:", err));
 
